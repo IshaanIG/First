@@ -26,28 +26,30 @@ function startTimer() {
 
     // Start the timer loop
     timer = setInterval(() => {
-        // Beep to lift the leg
-        playBeep();
-
         // Increment reps counter
         reps++;
         updateReps();
 
-        // Wait for 5 seconds
-        setTimeout(() => {
-            // Beep to lower the leg
+        // Beep to lift the leg every 6 seconds
+        if (reps % 2 === 1) {
             playBeep();
-        }, 5000); // 5000 milliseconds = 5 seconds
+        }
 
-        // Wait for 2 seconds (pause)
+        // Wait for 6 seconds (lift) or 2 seconds (pause)
         setTimeout(() => {
-            // Beep to signal the next leg lift
-            playBeep();
+            // Update the timer display every second
+            for (let i = 1; i <= 6; i++) {
+                setTimeout(() => {
+                    updateTimer(reps * 8 + i);
+                }, i * 1000); // Update the timer every second
+            }
 
-            // Update the timer display
-            updateTimer((reps * 7) + 2);
-        }, 2000); // 2000 milliseconds = 2 seconds
-    }, 7000); // 7000 milliseconds = 7 seconds
+            // Beep to signal the next leg action every 6 seconds
+            if (reps % 2 === 0) {
+                playBeep();
+            }
+        }, reps % 2 === 1 ? 6000 : 2000);
+    }, 8000); // 8000 milliseconds = 8 seconds
 }
 
 function stopTimer() {

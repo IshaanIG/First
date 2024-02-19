@@ -15,12 +15,12 @@ function updateReps(reps) {
     document.getElementById('repCounter').innerText = `Reps: ${reps}`;
 }
 
-function countOperation() {
+function countOperation(reps) {
         // Increment reps counter
-        reps = 0;
         reps++;
         updateReps(reps);
 
+    
         // Beep to lift the leg every 6 seconds
 
 
@@ -51,7 +51,7 @@ function countOperation() {
 
                 playBeep();
             
-        }, 2000);
+        }, 8000);
     }
 
 function startTimer() {
@@ -61,10 +61,11 @@ function startTimer() {
     // Set initial values
     updateReps(0);
     updateTimer(0);
+    reps = 0;
 
     // Start the timer loop
-    countOperation()
-    timer = setInterval(countOperation() , 8000); // 8000 milliseconds = 8 seconds
+    countOperation(reps)
+    timer = setInterval(countOperation(reps) , 8000); // 8000 milliseconds = 8 seconds
 }
 
 function stopTimer() {

@@ -11,45 +11,60 @@ function updateTimer(seconds) {
     document.getElementById('timer').innerText = `Timer: ${seconds}s`;
 }
 
-function updateReps() {
+function updateReps(reps) {
     document.getElementById('repCounter').innerText = `Reps: ${reps}`;
 }
 
-function startTimer() {
-    // Beep to start
-    playBeep();
-
-    // Set initial values
-    reps = 0;
-    updateReps();
-    updateTimer(0);
-
-    // Start the timer loop
-    timer = setInterval(() => {
+function countOperation() {
         // Increment reps counter
+        reps = 0;
         reps++;
-        updateReps();
+        updateReps(reps);
 
         // Beep to lift the leg every 6 seconds
-        if (reps % 2 === 1) {
-            playBeep();
-        }
+
 
         // Wait for 6 seconds (lift) or 2 seconds (pause)
         setTimeout(() => {
             // Update the timer display every second
             for (let i = 1; i <= 6; i++) {
                 setTimeout(() => {
-                    updateTimer(reps * 8 + i);
+                    updateTimer(i);
                 }, i * 1000); // Update the timer every second
             }
 
             // Beep to signal the next leg action every 6 seconds
-            if (reps % 2 === 0) {
+            
                 playBeep();
+            
+        }, 6000);
+
+        setTimeout(() => {
+            // Update the timer display every second
+            for (let i = 1; i <= 2; i++) {
+                setTimeout(() => {
+                    updateTimer(i);
+                }, i * 1000); // Update the timer every second
             }
-        }, reps % 2 === 1 ? 6000 : 2000);
-    }, 8000); // 8000 milliseconds = 8 seconds
+
+            // Beep to signal the next leg action every 6 seconds
+
+                playBeep();
+            
+        }, 2000);
+    }
+
+function startTimer() {
+    // Beep to start
+    playBeep();
+
+    // Set initial values
+    updateReps(0);
+    updateTimer(0);
+
+    // Start the timer loop
+    countOperation()
+    timer = setInterval(countOperation() , 8000); // 8000 milliseconds = 8 seconds
 }
 
 function stopTimer() {

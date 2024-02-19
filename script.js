@@ -43,6 +43,9 @@ function startTimer() {
         setTimeout(() => {
             // Beep to signal the next leg lift
             playBeep();
+
+            // Update the timer display
+            updateTimer((reps * 7) + 2);
         }, 2000); // 2000 milliseconds = 2 seconds
     }, 7000); // 7000 milliseconds = 7 seconds
 }

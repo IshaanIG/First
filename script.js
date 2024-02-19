@@ -1,20 +1,37 @@
-// Initialize the audio element
 let audio = new Audio('beep.wav');
 
-// Function to play the beep sound
+let timer;
+let reps = 0;
+
 function playBeep() {
     audio.play();
 }
 
-// Function to control the leg lifting timer
-function legLiftTimer() {
-    // Initial beep to start the timer
+function updateTimer(seconds) {
+    document.getElementById('timer').innerText = `Timer: ${seconds}s`;
+}
+
+function updateReps() {
+    document.getElementById('repCounter').innerText = `Reps: ${reps}`;
+}
+
+function startTimer() {
+    // Beep to start
     playBeep();
 
-    // Loop to repeat the timer
-    setInterval(() => {
+    // Set initial values
+    reps = 0;
+    updateReps();
+    updateTimer(0);
+
+    // Start the timer loop
+    timer = setInterval(() => {
         // Beep to lift the leg
         playBeep();
+
+        // Increment reps counter
+        reps++;
+        updateReps();
 
         // Wait for 5 seconds
         setTimeout(() => {
@@ -30,6 +47,18 @@ function legLiftTimer() {
     }, 7000); // 7000 milliseconds = 7 seconds
 }
 
-// Call the legLiftTimer function to start the timer
-legLiftTimer();
+function stopTimer() {
+    // Stop the timer loop
+    clearInterval(timer);
 
+    // Beep to signal the end
+    playBeep();
+}
+
+// Optional: Reset the timer and counter
+function resetTimer() {
+    clearInterval(timer);
+    reps = 0;
+    updateReps();
+    updateTimer(0);
+}
